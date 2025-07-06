@@ -14,7 +14,12 @@ export default function PromptGenerator() {
   const settings = ['urban backdrop', 'forest scene', 'sunset beach', 'space galaxy', 'neon cityscape', 'dreamy clouds'];
   const directives = ['use fine lines', 'emphasize symmetry', 'add subtle texture', 'focus on central composition', 'enhance shadows', 'highlight bold shapes'];
   const emojis = ['🎨', '🔥', '🌈', '✨', '🧠', '🛍️', '💥', '💡'];
-
+  const artStyles = [
+    'Vintage
+', 'Watercolor', 'Cyberpunk', 'Minimalist', 'Cartoon', 'Realistic', 'Anime', 'Retro 90s',
+    'Pop Art', 'Psychedelic', 'Steampunk', 'Gothic', 'Line Art', 'Doodle Art', 'Geometric', 'Kawaii',
+    'Surrealism', 'Typography Art', 'Stencil', 'Ink Sketch', '3D Render', 'Boho Style', 'Y2K Aesthetic'
+  ];
   const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
   const setting = settings[Math.floor(Math.random() * settings.length)];
   const directive = directives[Math.floor(Math.random() * directives.length)];
