@@ -2,34 +2,45 @@ import React, { useState } from 'react';
 import './index.css';
 
 export default function PromptGenerator() {
-  const [category, setCategory] = useState('T-Shirt');
-  const [niche, setNiche] = useState('Fitness');
+  const [category, setCategory] = useState('T-shirt');
+  const [theme, setTheme] = useState('Funny quote');
   const [style, setStyle] = useState('Vintage');
   const [customStyle, setCustomStyle] = useState('');
-  const [vibe, setVibe] = useState('Bold');
-  const [colors, setColors] = useState('Pastel');
+  const [audience, setAudience] = useState('Teenagers');
+  const [colors, setColors] = useState('Black & white');
   const [quote, setQuote] = useState('');
+  const [textOption, setTextOption] = useState('Include quote');
+  const [mood, setMood] = useState('Funny');
   const [prompt, setPrompt] = useState('');
 
-  const adjectives = ['whimsical', 'gritty', 'elegant', 'dynamic', 'abstract', 'photorealistic', 'grunge', 'playful'];
-  const settings = ['urban backdrop', 'forest scene', 'sunset beach', 'space galaxy', 'neon cityscape', 'dreamy clouds'];
-  const directives = ['use fine lines', 'emphasize symmetry', 'add subtle texture', 'focus on central composition', 'enhance shadows', 'highlight bold shapes'];
   const emojis = ['🎨', '🔥', '🌈', '✨', '🧠', '🛍️', '💥', '💡'];
-
   const artStyles = [
-    'Vintage', 'Watercolor', 'Cyberpunk', 'Minimalist', 'Cartoon', 'Realistic', 'Anime', 'Retro 90s',
-    'Pop Art', 'Psychedelic', 'Steampunk', 'Gothic', 'Line Art', 'Doodle Art', 'Geometric', 'Kawaii',
-    'Surrealism', 'Typography Art', 'Stencil', 'Ink Sketch', '3D Render', 'Boho Style', 'Y2K Aesthetic'
+    'Vintage', 'Retro', 'Hand-drawn', 'Typography', 'Minimalist', 'Watercolor', 'Grunge', 'Cute / Kawaii',
+    'Gothic', 'Comic book', 'Cyberpunk', 'Flat Illustration', 'Realistic', 'Line art'
+  ];
+  const textOptions = [
+    'Include quote',
+    'No text, visual only',
+    'Add space for editable name / custom text'
+  ];
+  const moodOptions = [
+    'Funny', 'Bold & Empowering', 'Calm & Peaceful', 'Dark & Edgy', 'Elegant', 'Playful', 'Mysterious', 'Energetic', 'Romantic'
   ];
 
   const generatePrompt = () => {
-    const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-    const setting = settings[Math.floor(Math.random() * settings.length)];
-    const directive = directives[Math.floor(Math.random() * directives.length)];
     const emoji = emojis[Math.floor(Math.random() * emojis.length)];
     const finalStyle = customStyle || style;
 
-    const text = `Design a ${finalStyle} and ${adj} artwork in a ${setting}, inspired by ${niche} for a ${category} product. Use ${colors} colors with a ${vibe} tone. ${directive}. Include the text: "${quote || 'No text'}" ${emoji}`;
+    let textPart = '';
+    if (textOption === 'Include quote') {
+      textPart = `Include the text: "${quote || 'Your quote here'}".`;
+    } else if (textOption === 'Add space for editable name / custom text') {
+      textPart = 'Leave space for customizable text or name.';
+    } else {
+      textPart = 'No text, visual only.';
+    }
+
+    const text = `Design a ${finalStyle} artwork for a ${category} themed around ${theme}. Target audience: ${audience}. Use ${colors} colors with a ${mood} mood. ${textPart} ${emoji}`;
     setPrompt(text);
   };
 
@@ -39,15 +50,15 @@ export default function PromptGenerator() {
         <h1 className="text-3xl font-bold text-center text-purple-700 mb-4">🎨 POD Prompt Generator</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-600">Category</label>
+            <label className="block text-sm font-medium text-gray-600">Product Category</label>
             <select className="w-full p-2 rounded border" value={category} onChange={(e) => setCategory(e.target.value)}>
-              {['T-Shirt', 'Mug', 'Hoodie', 'Sticker', 'Phone Case', 'Poster', 'Canvas', 'Notebook', 'Tote Bag'].map(opt => <option key={opt}>{opt}</option>)}
+              {[ 'T-shirt', 'Hoodie', 'Mug', 'Phone Case', 'Tote Bag', 'Poster', 'Canvas Print', 'Wall Art', 'Pillow', 'Notebook / Journal', 'Socks', 'Cap / Hat', 'Stickers', 'Blanket', 'Apron', 'Water Bottle', 'Mouse Pad', 'Baby Onesie', 'Pet Bandana'].map(opt => <option key={opt}>{opt}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-600">Niche</label>
-            <select className="w-full p-2 rounded border" value={niche} onChange={(e) => setNiche(e.target.value)}>
-              {['Fitness', 'Cats', 'Motivation', 'Gaming', 'Spiritual', 'Funny Quotes', 'LGBTQ+', 'Anime'].map(opt => <option key={opt}>{opt}</option>)}
+            <label className="block text-sm font-medium text-gray-600">Theme / Niche</label>
+            <select className="w-full p-2 rounded border" value={theme} onChange={(e) => setTheme(e.target.value)}>
+              {[ 'Funny quote', 'Inspirational message', 'Zodiac signs', 'Anime / Manga', 'Gaming', 'Pets (dogs, cats, birds)', 'National pride (India, USA, etc.)', 'Spiritual / Mindfulness', 'Sarcastic / Dark humor', 'Fitness / Gym', 'Nature & Hiking', 'Teachers / Nurses / Students', 'Trending memes', 'Pop culture references', 'Abstract art', 'Minimalist design' ].map(opt => <option key={opt}>{opt}</option>)}
             </select>
           </div>
           <div>
@@ -58,18 +69,31 @@ export default function PromptGenerator() {
             <input type="text" placeholder="Or enter custom style" className="w-full p-2 mt-2 rounded border" value={customStyle} onChange={(e) => setCustomStyle(e.target.value)} />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-600">Vibe</label>
-            <select className="w-full p-2 rounded border" value={vibe} onChange={(e) => setVibe(e.target.value)}>
-              {['Bold', 'Cute', 'Cool', 'Dark', 'Calm', 'Empowering'].map(opt => <option key={opt}>{opt}</option>)}
+            <label className="block text-sm font-medium text-gray-600">Target Audience</label>
+            <select className="w-full p-2 rounded border" value={audience} onChange={(e) => setAudience(e.target.value)}>
+              {[ 'Teenagers', 'Moms', 'Dog lovers', 'Cat dads', 'Gamers', 'Yoga enthusiasts', 'Teachers', 'Entrepreneurs', 'Gym rats', 'Couples', 'New parents', 'Students' ].map(opt => <option key={opt}>{opt}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-600">Color Palette</label>
-            <input type="text" className="w-full p-2 rounded border" value={colors} onChange={(e) => setColors(e.target.value)} />
+            <label className="block text-sm font-medium text-gray-600">Color Scheme</label>
+            <select className="w-full p-2 rounded border" value={colors} onChange={(e) => setColors(e.target.value)}>
+              {[ 'Black & white', 'Bright and colorful', 'Pastel tones', 'Earthy / Nature', 'Neon / Cyber', 'Monochrome', 'Custom palette' ].map(opt => <option key={opt}>{opt}</option>)}
+            </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-600">Optional Quote</label>
-            <input type="text" className="w-full p-2 rounded border" value={quote} onChange={(e) => setQuote(e.target.value)} />
+            <label className="block text-sm font-medium text-gray-600">Quote or Text Option</label>
+            <select className="w-full p-2 rounded border" value={textOption} onChange={(e) => setTextOption(e.target.value)}>
+              {textOptions.map(opt => <option key={opt}>{opt}</option>)}
+            </select>
+            {textOption === 'Include quote' && (
+              <input type="text" placeholder="Enter your quote" className="w-full p-2 mt-2 rounded border" value={quote} onChange={(e) => setQuote(e.target.value)} />
+            )}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-600">Mood / Feeling</label>
+            <select className="w-full p-2 rounded border" value={mood} onChange={(e) => setMood(e.target.value)}>
+              {moodOptions.map(opt => <option key={opt}>{opt}</option>)}
+            </select>
           </div>
         </div>
         <div className="text-center mt-6">
