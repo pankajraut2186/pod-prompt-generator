@@ -10,9 +10,20 @@ export default function PromptGenerator() {
   const [prompt, setPrompt] = useState('');
 
   const generatePrompt = () => {
-    const text = `Create a ${style} design featuring ${niche}-themed art in a ${vibe} setting, intended for ${category} products. Use a ${colors} color palette. Text: \"${quote}\".`;
-    setPrompt(text);
-  };
+  const adjectives = ['whimsical', 'gritty', 'elegant', 'dynamic', 'abstract', 'photorealistic', 'grunge', 'playful'];
+  const settings = ['urban backdrop', 'forest scene', 'sunset beach', 'space galaxy', 'neon cityscape', 'dreamy clouds'];
+  const directives = ['use fine lines', 'emphasize symmetry', 'add subtle texture', 'focus on central composition', 'enhance shadows', 'highlight bold shapes'];
+  const emojis = ['🎨', '🔥', '🌈', '✨', '🧠', '🛍️', '💥', '💡'];
+
+  const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+  const setting = settings[Math.floor(Math.random() * settings.length)];
+  const directive = directives[Math.floor(Math.random() * directives.length)];
+  const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+  const text = `Design a ${style} and ${adj} artwork in a ${setting}, inspired by ${niche} for a ${category} product. Use ${colors} colors with a ${vibe} tone. ${directive}. Include the text: "${quote || 'No text'}" ${emoji}`;
+  setPrompt(text);
+};
+
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial' }}>
