@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import './App.css';
+import './index.css';
 
 export default function PromptGenerator() {
   const [category, setCategory] = useState('T-shirt');
@@ -35,23 +34,23 @@ export default function PromptGenerator() {
 
     let textPart = '';
     if (textOption === 'Include quote') {
-      textPart = \`Include the text: "\${quote || 'Your quote here'}".\`;
+      textPart = `Include the text: "${quote || 'Your quote here'}".`;
     } else if (textOption === 'Add space for editable name / custom text') {
       textPart = 'Leave space for customizable text or name.';
     } else {
       textPart = 'No text, visual only.';
     }
 
-    const text = \`Design a \${finalStyle} artwork for a \${category} themed around \${theme}. Target audience: \${audience}. Use \${colors} colors with a \${mood} mood. \${textPart} \${emoji}\`;
+    const text = `Design a ${finalStyle} artwork for a ${category} themed around ${theme}. Target audience: ${audience}. Use ${colors} colors with a ${mood} mood. ${textPart} ${emoji}`;
     setPrompt(text);
     setPreview(text);
   };
 
   return (
-    <div className="app">
+    <div style={{ padding: 20 }}>
       <h1>POD Prompt Generator</h1>
       <button onClick={generatePrompt}>Generate Prompt</button>
-      {prompt && <div><h2>Prompt:</h2><p>{prompt}</p></div>}
+      {prompt && <pre>{prompt}</pre>}
     </div>
   );
 }
