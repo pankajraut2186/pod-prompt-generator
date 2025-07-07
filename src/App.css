@@ -1,9 +1,11 @@
-/* Add basic styling */
-.generator-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #faf5ff;
 }
-.form-group {
-  margin-bottom: 15px;
-}body { font-family: sans-serif; background: #f0f0f0; }
+select,
+input,
+button,
+textarea {
+  font-family: inherit;
+}
